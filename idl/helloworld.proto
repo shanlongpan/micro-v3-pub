@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package helloworld;
 
-option go_package = ".grpc";
+option go_package = "./idl/micro-grpc";
 
 service Helloworld {
     rpc Call(Request) returns (Response) {}
