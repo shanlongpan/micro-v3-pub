@@ -13,7 +13,6 @@ api:
 
 .PHONY: proto
 proto:
-	#protoc --proto_path=./idl --micro_out=./idl/grpc --go_out=./idl/grpc helloworld.proto
-	protoc --proto_path=. --micro_out=. --go_out=:. idl/helloworld.proto
+	protoc --proto_path=. --micro_out=. --go_out=:. idl/micro-v3.proto
 	
 .PHONY: build

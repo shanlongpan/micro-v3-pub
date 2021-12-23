@@ -14,10 +14,10 @@ import (
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/client"
 	"github.com/asim/go-micro/v3/registry"
-	helloworld "github.com/shanlongpan/micro-v3-pub/idl/micro-grpc"
+	"github.com/shanlongpan/micro-v3-pub/idl/grpc/microv3"
 )
 
-var clientInstance helloworld.HelloworldService
+var clientInstance microv3.MicroV3Service
 
 func init() {
 	// etcd 服务注册和发现以后改成环境变量配置
@@ -33,29 +33,29 @@ func init() {
 	// 初始化服务
 	service.Init()
 
-	// create the proto client for helloworld（创建 grpc client）
-	clientInstance = helloworld.NewHelloworldService("micro-v3-learn", service.Client())
+	// create the proto client for MicroV3（创建 grpc client）
+	clientInstance = microv3.NewMicroV3Service("micro-v3-learn", service.Client())
 
 }
 
 // 负载均衡使用默认，以后再完善
-func Call(ctx context.Context, req *helloworld.Request) (*helloworld.Response, error) {
+func Call(ctx context.Context, req *microv3.CallRequest,opts ...client.CallOption) (*microv3.CallResponse, error) {
 	// 日志和调用链追踪待补
 	rsp, err := clientInstance.Call(ctx, req)
 	if err != nil {
 		// 打日志
-		fmt.Println("Error calling helloworld: ", err)
+		fmt.Println("Error calling MicroV3: ", err)
 	}
 
 	return rsp, err
 }
 
-func Stream(ctx context.Context, in *helloworld.StreamingRequest, opts client.CallOption) (helloworld.Helloworld_StreamStream, error) {
+func Stream(ctx context.Context, in *microv3.StreamingRequest, opts client.CallOption) (microv3.MicroV3Service_StreamService, error) {
 	// 日志和调用链追踪待补
 	//rsp, err := clientInstance.Stream(ctx, in,opts)
 	//if err != nil {
 	//	// 打日志
-	//	fmt.Println("Error calling helloworld: ", err)
+	//	fmt.Println("Error calling MicroV3: ", err)
 	//}
 	//
 	//return rsp,err

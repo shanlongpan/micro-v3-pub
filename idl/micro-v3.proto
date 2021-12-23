@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package microv3;
+
+option go_package = "./idl/grpc/microv3";
+
+message CallRequest {
+  string name = 1;
+}
+
+message CallResponse {
+  string msg = 1;
+}
+
+message StreamingRequest {
+  int64 count = 1;
+}
+
+message StreamingResponse {
+  int64 count = 1;
+}
+
+message Ping {
+  int64 stroke = 1;
+}
+
+message Pong {
+  int64 stroke = 1;
+}
+
+message Message {
+  string say = 1;
+}
+
+service MicroV3Service {
+  rpc Call(CallRequest) returns (CallResponse) {}
+  rpc Stream(StreamingRequest) returns (stream StreamingResponse) {}
+  rpc PingPong(stream Ping) returns (stream Pong) {}
+}
