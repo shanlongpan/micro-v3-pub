@@ -3,7 +3,7 @@
 * @Date: 2021/12/22 10:45 上午
  */
 
-package main
+package MicroV3Adapter
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func init() {
 	service.Init()
 
 	// create the proto client for helloworld（创建 grpc client）
-	clientInstance = helloworld.NewHelloworldService("helloworld", service.Client())
+	clientInstance = helloworld.NewHelloworldService("micro-v3-learn", service.Client())
 
 }
 
@@ -64,14 +64,4 @@ func Stream(ctx context.Context, in *helloworld.StreamingRequest, opts client.Ca
 
 func PingPong() {
 	// 日志和调用链追踪待补
-}
-
-func main() {
-	for i := 0; i < 20; i++ {
-		res, err := Call(context.TODO(), &helloworld.Request{
-			Name: fmt.Sprintf("小米%d", i),
-		})
-		fmt.Println(res, err)
-	}
-
 }
