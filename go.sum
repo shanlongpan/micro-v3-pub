@@ -60,6 +60,8 @@ github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWX
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=
 github.com/acomagu/bufpipe v1.0.3 h1:fxAGrHZTgQ9w5QqVItgzwj235/uYZYgbXitB+dLupOk=
 github.com/acomagu/bufpipe v1.0.3/go.mod h1:mxdxdup/WdsKVreO5GpW4+M/1CE2sMG4jeGJ2sYmHc4=
+github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5 h1:rFw4nCn9iMW+Vajsk51NtYIcwSTkXr+JGrMd36kTDJw=
+github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5/go.mod h1:SkGFH1ia65gfNATL8TAiHDNxPzPdmEL5uirI2Uyuz6c=
 github.com/akamai/AkamaiOPEN-edgegrid-golang v0.9.0/go.mod h1:zpDJeKyp9ScW4NNrbdr+Eyxvry3ilGPewKoXw3XGN1k=
 github.com/akamai/AkamaiOPEN-edgegrid-golang v1.1.0/go.mod h1:kX6YddBkXqqywAe8c9LyvgTCyFuZCTMF4cRPQhc3Fy8=
 github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7/go.mod h1:6zEj6s6u/ghQa61ZWa/C2Aw3RkjiTBOix7dkqa1VLIs=
@@ -93,9 +95,16 @@ github.com/asim/go-micro/plugins/server/grpc/v3 v3.7.0 h1:eolwqKrKc2RQN3JaNm9Xv/
 github.com/asim/go-micro/plugins/server/grpc/v3 v3.7.0/go.mod h1:E5Ogci6dKu3gz84cElAqwkxf6NW6xacGUK/cU3FCtXg=
 github.com/asim/go-micro/plugins/transport/grpc/v3 v3.0.0-20210630062103-c13bb07171bc h1:HNwQZ8otoAsVfJT+VPZKXpPLcPvhdeLB4eZUV9C5Y+s=
 github.com/asim/go-micro/plugins/transport/grpc/v3 v3.0.0-20210630062103-c13bb07171bc/go.mod h1:he85vqmB3AW9k63zOfoauzYDE9slaL8WOL6vmq3vyUg=
+github.com/asim/go-micro/plugins/wrapper/breaker/hystrix/v3 v3.7.0 h1:EPtuyN/yVuiUNzl6zvG6M3/bWU/LH97rzHjElnDbv8I=
+github.com/asim/go-micro/plugins/wrapper/breaker/hystrix/v3 v3.7.0/go.mod h1:F3vn4L0vlIUPUq2NchnDvtgChJ3U/CcRWAvESDCxFqk=
+github.com/asim/go-micro/plugins/wrapper/select/roundrobin/v3 v3.7.0 h1:efBfFQUlhDbTl0gHvLT4o7k8Zp2m03iSK+eJ3Cc50lg=
+github.com/asim/go-micro/plugins/wrapper/select/roundrobin/v3 v3.7.0/go.mod h1:kzkHQ3HE3I8YD8ogTfmBnq8Zqmg5Fp6G8b/iBYquQqw=
+github.com/asim/go-micro/plugins/wrapper/select/shard/v3 v3.7.0 h1:IXnfmOAe+v405JnrcVfnvuMETgXebtg1N6JD48vzYwo=
+github.com/asim/go-micro/plugins/wrapper/select/shard/v3 v3.7.0/go.mod h1:+APWyhNZWSZSE3kZwWQVf4MsGwyx13X0vBGJ16FutOQ=
 github.com/asim/go-micro/v3 v3.5.1/go.mod h1:OJ5DnUQmoEVQTNbKRstR7/krtYJI+QaBe/XeN5MZkqE=
 github.com/asim/go-micro/v3 v3.5.2-0.20210629124054-4929a7c16ecc/go.mod h1:cNGIIYQcp0qy+taNYmrBdaIHeqMWHV5ZH/FfQzfOyE8=
 github.com/asim/go-micro/v3 v3.5.2-0.20210630062103-c13bb07171bc/go.mod h1:cNGIIYQcp0qy+taNYmrBdaIHeqMWHV5ZH/FfQzfOyE8=
+github.com/asim/go-micro/v3 v3.6.0/go.mod h1:cNGIIYQcp0qy+taNYmrBdaIHeqMWHV5ZH/FfQzfOyE8=
 github.com/asim/go-micro/v3 v3.7.0 h1:iPpKAkcftVyg8zcXWV4dTyrDkpJ5wst6g3ad7gEczqQ=
 github.com/asim/go-micro/v3 v3.7.0/go.mod h1:GP48EHjG/7dw16ZL+lflu2S2SXSPKEVE2mPc45URs1E=
 github.com/aws/aws-sdk-go v1.23.0/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
