@@ -17,8 +17,8 @@ import (
 	"github.com/asim/go-micro/v3/client"
 	"github.com/asim/go-micro/v3/metadata"
 	"github.com/asim/go-micro/v3/registry"
+	"github.com/google/uuid"
 	"github.com/shanlongpan/micro-v3-pub/idl/grpc/microv3"
-	"log"
 	"math/rand"
 	"strconv"
 	"time"
@@ -26,7 +26,10 @@ import (
 
 var clientInstance microv3.MicroV3Service
 
-const HashKey = "hash_key"
+const (
+	HashKey = "hash_key"
+	TraceId = "trace_id"
+)
 
 func init() {
 	// etcd 服务注册和发现以后改成环境变量配置
@@ -46,21 +49,32 @@ func init() {
 	clientInstance = microv3.NewMicroV3Service("micro-v3-learn", service.Client())
 
 }
+func FromContext(ctx context.Context, key string) (string, bool) {
+	u, ok := ctx.Value(key).(string)
+	return u, ok
+}
 
-// 没有 hashKey 设置默认的
-func setHashKey(ctx context.Context) context.Context {
-	value, ok := metadata.Get(ctx, HashKey)
+func setHashKeyAndTraceId(ctx context.Context) context.Context {
+	traceId, ok := FromContext(ctx, TraceId)
 	if !ok {
 		rand.Seed(time.Now().Unix())
-		value = strconv.Itoa(rand.Int())
-		log.Println("自动生成 hash_key",value)
-		ctx = metadata.Set(ctx, HashKey, value)
+		traceId = uuid.New().String()
 	}
+
+	ctx = metadata.Set(ctx, TraceId, traceId)
+
+	hashKey, ok := FromContext(ctx, HashKey)
+	if !ok {
+		rand.Seed(time.Now().Unix())
+		hashKey = strconv.Itoa(rand.Int())
+	}
+	ctx = metadata.Set(ctx, HashKey, hashKey)
+
 	return ctx
 }
 
 func Call(ctx context.Context, req *microv3.CallRequest, opts ...client.CallOption) (*microv3.CallResponse, error) {
-	ctx = setHashKey(ctx)
+	ctx = setHashKeyAndTraceId(ctx)
 	rsp, err := clientInstance.Call(ctx, req, opts...)
 	if err != nil {
 		// 打日志
