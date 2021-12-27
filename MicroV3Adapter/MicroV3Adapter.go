@@ -18,6 +18,7 @@ import (
 	"github.com/asim/go-micro/v3/metadata"
 	"github.com/asim/go-micro/v3/registry"
 	"github.com/shanlongpan/micro-v3-pub/idl/grpc/microv3"
+	"log"
 	"math/rand"
 	"strconv"
 	"time"
@@ -52,6 +53,7 @@ func setHashKey(ctx context.Context) context.Context {
 	if !ok {
 		rand.Seed(time.Now().Unix())
 		value = strconv.Itoa(rand.Int())
+		log.Println("自动生成 hash_key",value)
 		ctx = metadata.Set(ctx, HashKey, value)
 	}
 	return ctx
