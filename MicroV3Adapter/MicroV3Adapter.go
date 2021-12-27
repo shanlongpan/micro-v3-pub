@@ -15,23 +15,26 @@ import (
 	"github.com/asim/go-micro/plugins/wrapper/select/shard/v3"
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/client"
+	"github.com/asim/go-micro/v3/metadata"
 	"github.com/asim/go-micro/v3/registry"
 	"github.com/shanlongpan/micro-v3-pub/idl/grpc/microv3"
+	"math/rand"
+	"strconv"
+	"time"
 )
 
 var clientInstance microv3.MicroV3Service
 
-const hashKey = "hash_key"
+const HashKey = "hash_key"
 
 func init() {
 	// etcd 服务注册和发现以后改成环境变量配置
 	reg := etcd.NewRegistry(registry.Addrs("http://127.0.0.1:2377", "http://127.0.0.1:2378", "http://127.0.0.1:2379"))
-
 	service := micro.NewService(
 		micro.Name("micro-v3-learn"),
 		micro.Version("latest"),
 		micro.Registry(reg),
-		micro.WrapClient(hystrix.NewClientWrapper(), shard.NewClientWrapper(hashKey)),
+		micro.WrapClient(hystrix.NewClientWrapper(), shard.NewClientWrapper(HashKey)),
 		//micro.Client(grpc.NewClient()),
 	)
 
@@ -43,8 +46,19 @@ func init() {
 
 }
 
-//
+// 没有 hashKey 设置默认的
+func setHashKey(ctx context.Context) context.Context {
+	value, ok := metadata.Get(ctx, HashKey)
+	if !ok {
+		rand.Seed(time.Now().Unix())
+		value = strconv.Itoa(rand.Int())
+		ctx = metadata.Set(ctx, HashKey, value)
+	}
+	return ctx
+}
+
 func Call(ctx context.Context, req *microv3.CallRequest, opts ...client.CallOption) (*microv3.CallResponse, error) {
+	ctx = setHashKey(ctx)
 	rsp, err := clientInstance.Call(ctx, req, opts...)
 	if err != nil {
 		// 打日志
