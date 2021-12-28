@@ -8,6 +8,7 @@ package MicroV3Adapter
 import (
 	"context"
 	"fmt"
+	"github.com/asim/go-micro/plugins/client/grpc/v3"
 	_ "github.com/asim/go-micro/plugins/client/grpc/v3"
 	"github.com/asim/go-micro/plugins/registry/etcd/v3"
 	_ "github.com/asim/go-micro/plugins/server/grpc/v3"
@@ -39,7 +40,7 @@ func init() {
 		micro.Version("latest"),
 		micro.Registry(reg),
 		micro.WrapClient(hystrix.NewClientWrapper(), shard.NewClientWrapper(HashKey)),
-		//micro.Client(grpc.NewClient()),
+		micro.Client(grpc.NewClient()),
 	)
 
 	// 初始化服务
