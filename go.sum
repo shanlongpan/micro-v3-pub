@@ -91,6 +91,8 @@ github.com/asim/go-micro/plugins/registry/etcd/v3 v3.7.0/go.mod h1:xenxhgwP3iAb9
 github.com/asim/go-micro/plugins/registry/memory/v3 v3.0.0-20210629124054-4929a7c16ecc/go.mod h1:Xo866hGAXEvmUgskfhtijoRspvL9OXvuzMg97n1b8qg=
 github.com/asim/go-micro/plugins/registry/memory/v3 v3.0.0-20210630062103-c13bb07171bc h1:tDva/ON5dAKeND5j+CSR/wr22280KdPZjOzZxUcWFL8=
 github.com/asim/go-micro/plugins/registry/memory/v3 v3.0.0-20210630062103-c13bb07171bc/go.mod h1:byk73o19+HiI5rX9PqFhY48v61lV8l+lnXRvRH5jlmE=
+github.com/asim/go-micro/plugins/selector/shard/v3 v3.7.0 h1:MLZQVCyu9NyMplDt2mTdEvb0FJMrDQveTxxpLAhjNJU=
+github.com/asim/go-micro/plugins/selector/shard/v3 v3.7.0/go.mod h1:JZArw6XgE1VxPqDXAukxLB/HOXQXKhI+8Z4wtiUZK2E=
 github.com/asim/go-micro/plugins/server/grpc/v3 v3.7.0 h1:eolwqKrKc2RQN3JaNm9Xv/oa2aJpbP8FzuXgk1wR6QY=
 github.com/asim/go-micro/plugins/server/grpc/v3 v3.7.0/go.mod h1:E5Ogci6dKu3gz84cElAqwkxf6NW6xacGUK/cU3FCtXg=
 github.com/asim/go-micro/plugins/transport/grpc/v3 v3.0.0-20210630062103-c13bb07171bc h1:HNwQZ8otoAsVfJT+VPZKXpPLcPvhdeLB4eZUV9C5Y+s=
@@ -455,6 +457,8 @@ github.com/miekg/dns v1.1.27/go.mod h1:KNUDUusw/aVsxyTYZM1oqvCicbwhgbNgztCETuNZ7
 github.com/miekg/dns v1.1.40/go.mod h1:KNUDUusw/aVsxyTYZM1oqvCicbwhgbNgztCETuNZ7xM=
 github.com/miekg/dns v1.1.43 h1:JKfpVSCB84vrAmHzyrsxB5NAr5kLoMXZArPSw7Qlgyg=
 github.com/miekg/dns v1.1.43/go.mod h1:+evo5L0630/F6ca/Z9+GAqzhjGyn8/c+TBaOyfEl0V4=
+github.com/minio/highwayhash v1.0.2 h1:Aak5U0nElisjDCfPSG79Tgzkn2gl66NxOMspRrKnA/g=
+github.com/minio/highwayhash v1.0.2/go.mod h1:BQskDq+xkJ12lmlUUi7U0M5Swg3EWR+dLTk+kldvVxY=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/mitchellh/go-homedir v1.1.0 h1:lukF9ziXFxDFPkA1vsr5zpc1XuPDn/wFntq5mG+4E0Y=
@@ -792,6 +796,7 @@ golang.org/x/sys v0.0.0-20181026203630-95b1ffbd15a5/go.mod h1:STP8DvDyc/dI5b8T5h
 golang.org/x/sys v0.0.0-20181107165924-66b7b1311ac8/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20181116152217-5ac8a444bdc5/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20181122145206-62eef0e2fa9b/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+golang.org/x/sys v0.0.0-20190130150945-aca44879d564/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20190209173611-3b5209105503/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20190221075227-b4e8571b14e0/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=

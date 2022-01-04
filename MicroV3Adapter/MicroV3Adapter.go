@@ -9,27 +9,27 @@ import (
 	"context"
 	"fmt"
 	"github.com/asim/go-micro/plugins/client/grpc/v3"
-	_ "github.com/asim/go-micro/plugins/client/grpc/v3"
 	"github.com/asim/go-micro/plugins/registry/etcd/v3"
-	_ "github.com/asim/go-micro/plugins/server/grpc/v3"
+	"github.com/asim/go-micro/plugins/selector/shard/v3"
 	"github.com/asim/go-micro/plugins/wrapper/breaker/hystrix/v3"
-	"github.com/asim/go-micro/plugins/wrapper/select/shard/v3"
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/client"
 	"github.com/asim/go-micro/v3/metadata"
 	"github.com/asim/go-micro/v3/registry"
 	"github.com/google/uuid"
 	"github.com/shanlongpan/micro-v3-pub/idl/grpc/microv3"
-	"math/rand"
-	"strconv"
 	"time"
 )
 
 var clientInstance microv3.MicroV3Service
 
 const (
-	HashKey = "hash_key"
-	TraceId = "trace_id"
+	HashKey                   = "hash_key"
+	TraceId                   = "trace_id"
+	TimeOut                   = 3000 //3s 超时
+	MaxConcurrentRequestNum   = 1000 //最大并发数1000
+	ErrorPercentThresholdPer  = 30   // 30%请求报错，熔断触发
+	RequestVolumeThresholdNum = 10   // 窗口时间内，超过次数量开始健康监控
 )
 
 func init() {
@@ -39,43 +39,48 @@ func init() {
 		micro.Name("micro-v3-learn"),
 		micro.Version("latest"),
 		micro.Registry(reg),
-		micro.WrapClient(hystrix.NewClientWrapper(), shard.NewClientWrapper(HashKey)),
-		micro.Client(grpc.NewClient()),
+		micro.Client(grpc.NewClient(
+			client.Registry(reg),
+		)),
 	)
+	hystrix.ConfigureDefault(hystrix.CommandConfig{
+		Timeout:                TimeOut,
+		MaxConcurrentRequests:  MaxConcurrentRequestNum,
+		RequestVolumeThreshold: RequestVolumeThresholdNum,
+		ErrorPercentThreshold:  ErrorPercentThresholdPer,
+	})
 
 	// 初始化服务
-	service.Init()
+	service.Init(micro.WrapClient(hystrix.NewClientWrapper()))
 
-	// create the proto client for MicroV3（创建 grpc client）
 	clientInstance = microv3.NewMicroV3Service("micro-v3-learn", service.Client())
-
 }
+
 func FromContext(ctx context.Context, key string) (string, bool) {
 	u, ok := ctx.Value(key).(string)
 	return u, ok
 }
 
-func setHashKeyAndTraceId(ctx context.Context) context.Context {
+func setMetaTraceId(ctx context.Context) context.Context {
 	traceId, ok := FromContext(ctx, TraceId)
 	if !ok {
-		rand.Seed(time.Now().Unix())
 		traceId = uuid.New().String()
 	}
-
 	ctx = metadata.Set(ctx, TraceId, traceId)
-
-	hashKey, ok := FromContext(ctx, HashKey)
-	if !ok {
-		rand.Seed(time.Now().Unix())
-		hashKey = strconv.Itoa(rand.Int())
-	}
-	ctx = metadata.Set(ctx, HashKey, hashKey)
-
 	return ctx
 }
 
+func getHashKey(ctx context.Context) string {
+	hashKey, ok := FromContext(ctx, HashKey)
+	if !ok || len(hashKey) == 0 {
+		hashKey = fmt.Sprintf("%d", time.Now().UnixNano())
+	}
+	return hashKey
+}
+
 func Call(ctx context.Context, req *microv3.CallRequest, opts ...client.CallOption) (*microv3.CallResponse, error) {
-	ctx = setHashKeyAndTraceId(ctx)
+	ctx = setMetaTraceId(ctx)
+	opts = append(opts, shard.Strategy(getHashKey(ctx)))
 	rsp, err := clientInstance.Call(ctx, req, opts...)
 	if err != nil {
 		// 打日志
