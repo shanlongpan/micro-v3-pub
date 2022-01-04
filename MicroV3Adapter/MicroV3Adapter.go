@@ -24,7 +24,7 @@ import (
 var clientInstance microv3.MicroV3Service
 
 var (
-	EtcdEndPoints             = []string{"http://127.0.0.1:2377", "http://127.0.0.1:2378", "http://127.0.0.1:2379"}
+	EtcdEndPoints             = []string{""}
 	HashKey                   = "hash_key"
 	TraceId                   = "trace_id"
 	TimeOut                   = 3000 //3s 超时
