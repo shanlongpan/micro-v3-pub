@@ -23,7 +23,8 @@ import (
 
 var clientInstance microv3.MicroV3Service
 
-const (
+var (
+	EtcdEndPoints             = []string{"http://127.0.0.1:2377", "http://127.0.0.1:2378", "http://127.0.0.1:2379"}
 	HashKey                   = "hash_key"
 	TraceId                   = "trace_id"
 	TimeOut                   = 3000 //3s 超时
@@ -34,7 +35,7 @@ const (
 
 func init() {
 	// etcd 服务注册和发现以后改成环境变量配置
-	reg := etcd.NewRegistry(registry.Addrs("http://127.0.0.1:2377", "http://127.0.0.1:2378", "http://127.0.0.1:2379"))
+	reg := etcd.NewRegistry(registry.Addrs(EtcdEndPoints...))
 	service := micro.NewService(
 		micro.Name("micro-v3-learn"),
 		micro.Version("latest"),
