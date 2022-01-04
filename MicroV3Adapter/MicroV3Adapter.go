@@ -18,6 +18,7 @@ import (
 	"github.com/asim/go-micro/v3/registry"
 	"github.com/google/uuid"
 	"github.com/shanlongpan/micro-v3-pub/idl/grpc/microv3"
+	"log"
 	"time"
 )
 
@@ -35,6 +36,9 @@ var (
 
 func init() {
 	// etcd 服务注册和发现以后改成环境变量配置
+	if len(EtcdEndPoints) == 0 {
+		log.Fatalln("etcd 为空")
+	}
 	reg := etcd.NewRegistry(registry.Addrs(EtcdEndPoints...))
 	service := micro.NewService(
 		micro.Name("micro-v3-learn"),
